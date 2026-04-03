@@ -20,7 +20,6 @@ syn match FennelComment ";.*$" contains=FennelCommentTodo,@Spell
 
 syntax match FennelStringEscape '\v\\%([abfnrtv'"\\]|x[[0-9a-fA-F]]\{2}|25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9])' contained
 syntax region FennelString matchgroup=FennelStringDelimiter start=/"/ skip=/\\\\\|\\"/ end=/"/ contains=FennelStringEscape,@Spell
-syntax region FennelString matchgroup=FennelStringDelimiter start=/'/ skip=/\\\\\|\\'/ end=/'/ contains=FennelStringEscape,@Spell
 
 syn keyword FennelConstant nil
 
@@ -48,18 +47,26 @@ syn keyword FennelSpecialForm =
 syn keyword FennelSpecialForm >
 syn keyword FennelSpecialForm >=
 syn keyword FennelSpecialForm ^
+syn keyword FennelSpecialForm accumulate
 syn keyword FennelSpecialForm and
+syn keyword FennelSpecialForm case
+syn keyword FennelSpecialForm case-try
+syn keyword FennelSpecialForm collect
 syn keyword FennelSpecialForm comment
 syn keyword FennelSpecialForm do
 syn keyword FennelSpecialForm doc
 syn keyword FennelSpecialForm doto
 syn keyword FennelSpecialForm each
 syn keyword FennelSpecialForm eval-compiler
+syn keyword FennelSpecialForm faccumulate
+syn keyword FennelSpecialForm fcollect
 syn keyword FennelSpecialForm fn
 syn keyword FennelSpecialForm for
 syn keyword FennelSpecialForm global
 syn keyword FennelSpecialForm hashfn
+syn keyword FennelSpecialForm icollect
 syn keyword FennelSpecialForm if
+syn keyword FennelSpecialForm import-macros
 syn keyword FennelSpecialForm include
 syn keyword FennelSpecialForm lambda
 syn keyword FennelSpecialForm length
@@ -67,12 +74,16 @@ syn keyword FennelSpecialForm let
 syn keyword FennelSpecialForm local
 syn keyword FennelSpecialForm lua
 syn keyword FennelSpecialForm macro
+syn keyword FennelSpecialForm macrodebug
 syn keyword FennelSpecialForm macros
 syn keyword FennelSpecialForm match
+syn keyword FennelSpecialForm match-try
 syn keyword FennelSpecialForm not
 syn keyword FennelSpecialForm not=
 syn keyword FennelSpecialForm or
 syn keyword FennelSpecialForm partial
+syn keyword FennelSpecialForm pick-args
+syn keyword FennelSpecialForm pick-values
 syn keyword FennelSpecialForm quote
 syn keyword FennelSpecialForm require-macros
 syn keyword FennelSpecialForm set
@@ -83,6 +94,7 @@ syn keyword FennelSpecialForm var
 syn keyword FennelSpecialForm when
 syn keyword FennelSpecialForm while
 syn keyword FennelSpecialForm ~=
+syn keyword FennelSpecialForm with-open
 syn keyword FennelSpecialForm λ
 
 " Lua keywords
@@ -239,11 +251,11 @@ syntax keyword LuaSpecialValue
 let s:symcharnodig = '\!\$%\&\#\*\+\-./:<=>?A-Z^_a-z|\x80-\U10FFFF'
 let s:symchar = '0-9' . s:symcharnodig
 execute 'syn match FennelSymbol "\v<%([' . s:symcharnodig . '])%([' . s:symchar . '])*>"'
-execute 'syn match FennelKeyword "\v<:%([' . s:symchar . '])*>"'
+execute 'syn match FennelKeyword "\v:%([' . s:symchar . '])*>"'
 unlet! s:symchar s:symcharnodig
 
 syn match FennelQuote "`"
-syn match FennelQuote "@"
+syn match FennelQuote ","
 
 " FENNEL numbers
 syntax match FennelNumber "\v\c<[-+]?\d*\.?\d*%([eE][-+]?\d+)?>"
